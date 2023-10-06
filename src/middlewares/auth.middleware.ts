@@ -3,7 +3,7 @@ import jwtUtil from '../util/jwt.util';
 import UserModel from '../database/models/user.model';
 
 function extractToken(token: string): string {
-  return token.split('')[1];
+  return token.split(' ')[1];
 }
 
 async function handleAuth(req: Request, res: Response, next: NextFunction) {
