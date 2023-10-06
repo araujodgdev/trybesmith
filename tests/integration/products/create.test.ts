@@ -10,7 +10,6 @@ chai.use(chaiHttp);
 
 async function realizeLogin() {
   const httpRequestBody = loginMocks.validLogin;
-  const mockFindOneReturn = UserModel.build(loginMocks.existingUser);
   const loginResponse = await chai.request(app).post('/login').send(httpRequestBody);
 
   return loginResponse.body;

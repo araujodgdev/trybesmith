@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import UserModel, { UserInputtableTypes } from '../database/models/user.model';
+import UserModel from '../database/models/user.model';
 import { ServiceResponse } from '../types/ServiceResponse';
 import jwtUtil from '../util/jwt.util';
 
@@ -7,18 +7,19 @@ type Token = {
   token: string
 };
 
-async function verifyLogin(loginInfo: UserInputtableTypes): Promise<ServiceResponse<Token>> {
-  const { username, password } = loginInfo;
-  const user = await UserModel.findOne({ where: { username } });
+type Login = {
+  username: string;
+  password: string
+};
+
+async function verifyLogin(loginInfo: Login): Promise<ServiceResponse<Token>> {
+  const user = await UserModel.findOne({ where: { username: loginInfo.username } });
 
   if (!user) {
-    return {
-      status: 'INVALID_DATA',
-      data: { message: 'Invalid username' },
-    };
+    return { status: 'INVALID_DATA', data: { message: 'Invalid username' } };
   }
 
-  if (!bcrypt.compare(password, user.dataValues.password)) {
+  if (!bcrypt.compareSync(loginInfo.password, user.dataValues.password)) {
     return { status: 'INVALID_DATA', data: { message: 'Wrong password' } };
   }
 

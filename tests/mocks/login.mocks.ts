@@ -1,9 +1,9 @@
 import bcrypt from 'bcryptjs';
 
-const validPassword = bcrypt.hashSync('terrível', 10);
+const validPassword = 'terrível'
 const validUsername = 'Hagar';
 
-const invalidPassword = 'terríve1';
+const invalidPassword = 'terrve1';
 const invalidUsername = 'hag4r';
 
 const validLogin = {
@@ -14,6 +14,11 @@ const validLogin = {
 const invalidLogin = {
   username: invalidUsername,
   password: invalidPassword,
+}
+
+const validUsernameWithWrongPassword = {
+  username: validUsername,
+  password: invalidPassword
 }
 
 const existingUser = {
@@ -28,4 +33,5 @@ export default {
   validLogin,
   invalidLogin,
   existingUser,
+  validUsernameWithWrongPassword
 }
