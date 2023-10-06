@@ -13,14 +13,13 @@ type Login = {
 };
 
 async function verifyLogin(loginInfo: Login): Promise<ServiceResponse<Token>> {
+  if (!loginInfo.username || !loginInfo.password) {
+    return { status: 'INVALID_DATA', data: { message: '"username" and "password" are required' } };
+  }
   const user = await UserModel.findOne({ where: { username: loginInfo.username } });
 
-  if (!user) {
-    return { status: 'INVALID_DATA', data: { message: 'Invalid username' } };
-  }
-
-  if (!bcrypt.compareSync(loginInfo.password, user.dataValues.password)) {
-    return { status: 'INVALID_DATA', data: { message: 'Wrong password' } };
+  if (!user || !bcrypt.compareSync(loginInfo.password, user.dataValues.password)) {
+    return { status: 'UNAUTHORIZED', data: { message: 'Username or password invalid' } };
   }
 
   const payload = { id: user.dataValues.id, username: user.dataValues.username };
