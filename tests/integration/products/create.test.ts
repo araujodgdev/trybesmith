@@ -4,7 +4,6 @@ import chaiHttp from 'chai-http';
 
 import app from '../../../src/app';
 import loginMocks from '../../mocks/login.mocks';
-import UserModel from '../../../src/database/models/user.model';
 
 chai.use(chaiHttp);
 
@@ -23,7 +22,6 @@ describe('POST /products', function () {
     const authHeader = `Baerer ${token}`;
     const response = await chai.request(app)
       .post('/products')
-      .set('authorization', authHeader)
       .send({ price: '100 peças de ouro', orderId: 1 });
     expect(response).to.have.status(400);
     expect(response.body).to.be.eql({ message: 'Invalid data!' });
@@ -34,7 +32,6 @@ describe('POST /products', function () {
     const authHeader = `Baerer ${token}`;
     const response = await chai.request(app)
       .post('/products')
-      .set('authorization', authHeader)
       .send({ name: 'Pomo de ouro', price: '100 peças de ouro', orderId: 1 });
     expect(response.status).to.equal(201);
   })

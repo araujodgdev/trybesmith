@@ -10,6 +10,14 @@ async function registerNewProduct(req: Request, res: Response) {
   res.status(mapHttpStatus(status)).json(data);
 }
 
+async function getAllProducts(req: Request, res: Response) {
+  const serviceResponse = await productsServices.findAll();
+  const { status, data } = serviceResponse;
+
+  res.status(mapHttpStatus(status)).json(data);
+}
+
 export default {
   registerNewProduct,
+  getAllProducts,
 };

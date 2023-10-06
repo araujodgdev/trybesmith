@@ -1,5 +1,5 @@
 import ProductModel, {
-  ProductInputtableTypes,
+  ProductInputtableTypes, ProductSequelizeModel,
 } from '../database/models/product.model';
 import { Product } from '../types/Product';
 
@@ -27,6 +27,16 @@ async function register(info: ProductInputtableTypes): Promise<ServiceResponse<P
   }
 }
 
+async function findAll(): Promise<ServiceResponse<ProductSequelizeModel[]>> {
+  const products = await ProductModel.findAll();
+
+  return {
+    status: 'SUCCESS',
+    data: products,
+  };
+}
+
 export default {
   register,
+  findAll,
 };
