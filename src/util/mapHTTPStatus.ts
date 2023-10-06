@@ -5,6 +5,7 @@ export default function mapHttpStatus(status: string): number {
     INVALID_DATA: 400,
     SUCCESS: 200,
     UNAUTHORIZED: 401,
+    UNPROCESSABLE_ENTITY: 422,
   };
 
   return statusMap[status];

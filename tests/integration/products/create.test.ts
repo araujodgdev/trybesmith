@@ -24,7 +24,7 @@ describe('POST /products', function () {
       .post('/products')
       .send({ price: '100 peças de ouro', orderId: 1 });
     expect(response).to.have.status(400);
-    expect(response.body).to.be.eql({ message: 'Invalid data!' });
+    expect(response.body).to.be.eql({ message: '"name" is required' });
   });
 
   it('É possível cadastrar um produto corretamente', async function () {

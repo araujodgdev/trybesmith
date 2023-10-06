@@ -1,15 +1,21 @@
-export type ServiceResponseErrorType = 'INVALID_DATA' | 'NOT_FOUND' | 'UNAUTHORIZED';
+export type ServiceResponseErrorType =
+  | 'INVALID_DATA'
+  | 'NOT_FOUND'
+  | 'UNAUTHORIZED'
+  | 'UNPROCESSABLE_ENTITY';
 
 export type ServiceResponseError = {
   status: ServiceResponseErrorType;
   data: {
     message: string;
-  }
+  };
 };
 
 export type ServiceResponseSuccess<T> = {
   status: 'SUCCESS' | 'CREATED';
-  data: T; 
+  data: T;
 };
 
-export type ServiceResponse<T> = ServiceResponseSuccess<T> | ServiceResponseError;
+export type ServiceResponse<T> =
+  | ServiceResponseSuccess<T>
+  | ServiceResponseError;

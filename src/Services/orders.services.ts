@@ -13,7 +13,7 @@ async function getAll(): Promise<ServiceResponse<Order[]>> {
     const out = {
       id,
       userId,
-      productIds: ord.productIds?.flatMap((prodId: any) => prodId.id),
+      productIds: ord.productIds.flatMap((prodId: any) => prodId.id),
     };
 
     return out;

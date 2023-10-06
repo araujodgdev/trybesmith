@@ -7,11 +7,6 @@ import { ServiceResponse } from '../types/ServiceResponse';
 
 async function register(info: ProductInputtableTypes): Promise<ServiceResponse<Product>> {
   const { name, price, orderId } = info;
-  if (!name || !price || !orderId) {
-    return { status: 'INVALID_DATA',
-      data: { message: 'Invalid data!' },
-    };
-  }
   const product = await ProductModel.create({ name, price, orderId });
   const responseInfo = {
     id: product.dataValues.id,
